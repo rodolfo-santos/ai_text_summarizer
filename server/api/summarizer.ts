@@ -10,7 +10,7 @@ const openAI = new OpenAIApi(configuration);
 export default defineEventHandler(async (event) => {
   const { text } = await readBody(event);
 
-  const prompt = 'Resuma o texto abaixo:\n' + text;
+  const prompt = 'Summarize the text below: \n' + text;
 
   try {
     const completion = await openAI.createCompletion({
@@ -19,7 +19,9 @@ export default defineEventHandler(async (event) => {
       max_tokens: 2048,
     });
 
-    return completion.data.choices[0].text?.trim();
+    return {
+      result: completion.data.choices[0].text?.trim(),
+    };
   } catch (error) {
     const err = error as AxiosError;
 

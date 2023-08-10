@@ -18,9 +18,9 @@ async function summarizeText() {
       }),
     });
 
-    const data = await response.json();
+    const data = await response;
 
-    summary.value = data;
+    summary.value = data.result;
   } catch (error) {
     requestError.value = error;
   }
@@ -41,8 +41,6 @@ async function summarizeText() {
         <button @click="summarizeText">Summarizer</button>
       </div>
 
-      <hr />
-
       <div class="result-container">
         <h2>Result</h2>
         <p v-if="isLoading">Loading...</p>
@@ -53,13 +51,20 @@ async function summarizeText() {
   </div>
 </template>
 
-<style scoped>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #111;
+  color: #fff;
+}
+
 .app {
   font-family: Arial, sans-serif;
 }
 
 .header {
-  background-color: #333;
+  background-color: #444;
   color: white;
   padding: 1rem;
   text-align: center;
